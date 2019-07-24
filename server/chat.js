@@ -1564,6 +1564,10 @@ Chat.loadPlugins = function () {
 		if (plugin.loginfilter) Chat.loginfilters.push(plugin.loginfilter);
 		if (plugin.nicknamefilter) Chat.nicknamefilters.push(plugin.nicknamefilter);
 		if (plugin.statusfilter) Chat.statusfilters.push(plugin.statusfilter);
+	for (let file of FS('custom-plugins').readdirSync()) {
+		if (file.substr(-3) !== '.js') continue;
+		const customplugin = require(`./custom-plugins/${file}`);
+		Object.assign(commands, customplugin.commands);
 	}
 };
 
